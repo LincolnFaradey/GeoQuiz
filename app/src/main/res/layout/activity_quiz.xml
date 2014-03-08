@@ -3,9 +3,10 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@android:color/holo_blue_bright"
     >
 <TextView
-    android:text="@string/hello_world"
+    android:id="@+id/question_text_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="24dp"
@@ -17,13 +18,21 @@
         android:orientation="horizontal"
         >
         <Button
+            android:id="@+id/true_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/true_button"/>
         <Button
+            android:id="@+id/false_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/false_button"/>
-        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_button"
+        />
 </LinearLayout>
 
