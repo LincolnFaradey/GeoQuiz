@@ -14,6 +14,7 @@ public class QuizActivity extends ActionBarActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mBackButton;
     private TextView mQuestionTextView;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
@@ -85,6 +86,19 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 nextQuestion();
+                updateQuestion();
+            }
+        });
+
+        mBackButton = (Button) findViewById(R.id.back_button);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCurrentIndex > 0) {
+                    mCurrentIndex -= 1;
+                }else {
+                    Toast.makeText(QuizActivity.this, "You're in the First", Toast.LENGTH_SHORT).show();
+                }
                 updateQuestion();
             }
         });
