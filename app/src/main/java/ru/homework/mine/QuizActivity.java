@@ -34,7 +34,7 @@ public class QuizActivity extends ActionBarActivity {
     private void checkAnswer(boolean userPressedButton){
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
 
-        int messageResId = 0;
+        int messageResId;
         if (userPressedButton == answerIsTrue) {
             messageResId = R.string.correct_toast;
         }else {
