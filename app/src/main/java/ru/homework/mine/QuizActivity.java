@@ -33,6 +33,7 @@ public class QuizActivity extends ActionBarActivity {
     };
 
     private int mCurrentIndex = 0;
+    private boolean mIsCheater;
     private boolean[] cheatQuestion = new boolean[mQuestionBank.length];
 
     @Override
@@ -40,8 +41,8 @@ public class QuizActivity extends ActionBarActivity {
         if (data == null) {
             return;
         }
-
-        cheatQuestion[mCurrentIndex] = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        cheatQuestion[mCurrentIndex] = mIsCheater;
     }
 
     private void updateQuestion(){
@@ -119,7 +120,7 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 nextQuestion();
-                cheatQuestion[mCurrentIndex] = false;
+                mIsCheater = false;
                 updateQuestion();
             }
         });
@@ -133,14 +134,15 @@ public class QuizActivity extends ActionBarActivity {
                 }else {
                     Toast.makeText(QuizActivity.this, "You're in the First", Toast.LENGTH_SHORT).show();
                 }
-                cheatQuestion[mCurrentIndex] = false;
+                mIsCheater = false;
                 updateQuestion();
             }
         });
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            cheatQuestion[mCurrentIndex] = savedInstanceState.getBoolean(KEY_INDEX, false);
+            mIsCheater = savedInstanceState.getBoolean(KEY_INDEX, false);
+            cheatQuestion = savedInstanceState.getBooleanArray(KEY_INDEX);
         }
         updateQuestion();
     }
