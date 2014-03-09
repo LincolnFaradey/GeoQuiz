@@ -34,6 +34,7 @@ public class QuizActivity extends ActionBarActivity {
 
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
+    private boolean[] cheatQuestion = new boolean[mQuestionBank.length];
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -41,6 +42,8 @@ public class QuizActivity extends ActionBarActivity {
             return;
         }
         mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+
+        cheatQuestion[mCurrentIndex] = mIsCheater;
     }
 
     private void updateQuestion(){
@@ -55,8 +58,8 @@ public class QuizActivity extends ActionBarActivity {
     private void checkAnswer(boolean userPressedButton){
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
         int messageResId;
-        if (mIsCheater) {
-            messageResId =R.string.judjment_toast;
+        if (cheatQuestion[mCurrentIndex]) {
+            messageResId = R.string.judjment_toast;
         }else {
             if (userPressedButton == answerIsTrue) {
                 messageResId = R.string.correct_toast;
@@ -150,6 +153,7 @@ public class QuizActivity extends ActionBarActivity {
         Log.i(TAG, "onSaveInstanceState");
         outState.putInt(KEY_INDEX, mCurrentIndex);
         outState.putBoolean(KEY_INDEX, mIsCheater);
+        outState.putBooleanArray(KEY_INDEX, cheatQuestion);
     }
 
 
