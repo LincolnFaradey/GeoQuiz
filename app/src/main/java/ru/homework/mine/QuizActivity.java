@@ -33,7 +33,6 @@ public class QuizActivity extends ActionBarActivity {
     };
 
     private int mCurrentIndex = 0;
-    private boolean mIsCheater;
     private boolean[] cheatQuestion = new boolean[mQuestionBank.length];
 
     @Override
@@ -41,9 +40,8 @@ public class QuizActivity extends ActionBarActivity {
         if (data == null) {
             return;
         }
-        mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
 
-        cheatQuestion[mCurrentIndex] = mIsCheater;
+        cheatQuestion[mCurrentIndex] = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
     }
 
     private void updateQuestion(){
@@ -121,7 +119,7 @@ public class QuizActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 nextQuestion();
-                mIsCheater = false;
+                cheatQuestion[mCurrentIndex] = false;
                 updateQuestion();
             }
         });
@@ -135,14 +133,14 @@ public class QuizActivity extends ActionBarActivity {
                 }else {
                     Toast.makeText(QuizActivity.this, "You're in the First", Toast.LENGTH_SHORT).show();
                 }
-                mIsCheater = false;
+                cheatQuestion[mCurrentIndex] = false;
                 updateQuestion();
             }
         });
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            mIsCheater = savedInstanceState.getBoolean(KEY_INDEX, false);
+            cheatQuestion[mCurrentIndex] = savedInstanceState.getBoolean(KEY_INDEX, false);
         }
         updateQuestion();
     }
@@ -152,7 +150,7 @@ public class QuizActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
         outState.putInt(KEY_INDEX, mCurrentIndex);
-        outState.putBoolean(KEY_INDEX, mIsCheater);
+        outState.putBoolean(KEY_INDEX, cheatQuestion[mCurrentIndex]);
         outState.putBooleanArray(KEY_INDEX, cheatQuestion);
     }
 
