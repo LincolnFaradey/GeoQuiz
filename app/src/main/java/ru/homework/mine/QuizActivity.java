@@ -1,6 +1,7 @@
 package ru.homework.mine;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class QuizActivity extends ActionBarActivity {
     private ImageButton mBackButton;
     private Button mCheatButton;
     private TextView mQuestionTextView;
+    private TextView mApiLevel;
 
     private TrueFalse[] mQuestionBank = new TrueFalse[] {
         new TrueFalse(R.string.question_oceans, true),
@@ -138,6 +140,11 @@ public class QuizActivity extends ActionBarActivity {
                 updateQuestion();
             }
         });
+
+        mApiLevel = (TextView) findViewById(R.id.api_level_text);
+        mApiLevel.setText("API level: " + Build.VERSION.SDK_INT);
+
+
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
